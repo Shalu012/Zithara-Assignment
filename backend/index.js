@@ -51,18 +51,6 @@ app.get('/customerData', async (req, res) => {
     }
 });
 
-// Search customers by name or location
-app.get('/customerData/search', async (req, res) => {
-    try {
-        const { query } = req.query;
-        const queryResult = await pool.query('SELECT * FROM customerData WHERE customer_name ILIKE $1 OR location ILIKE $1', [`%${query}%`]);
-        res.json(queryResult.rows);
-    } catch (error) {
-        console.error('Error searching customers:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
 app.listen(port, () => {
     console.log(`Server is running on port ${port}....`);
 });
